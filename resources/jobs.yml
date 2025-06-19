@@ -1,0 +1,11 @@
+resources:
+  jobs:
+    hello_world:
+      name: "hello-world-job"
+      description: "A simple job that prints hello world"
+      tasks:
+        - task_key: "hello_world_task"
+          notebook_task:
+            notebook_path: "/Repos/hello-world-notebook"
+            source: "WORKSPACE"
+          existing_cluster_id: ${resources.clusters.hello_world_cluster.id} 

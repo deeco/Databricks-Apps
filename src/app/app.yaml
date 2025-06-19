@@ -1,0 +1,4 @@
+name: hello-world-app
+description: A Streamlit app that lets users trigger the job included in this bundle.
+environment_variables:
+  JOB_ID: ${resources.jobs.hello_world.id} 

@@ -49,28 +49,45 @@ jobs:
           DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
           DATABRICKS_BUNDLE_ENV: prod
       
+      - name: Debug - Show cluster list as JSON
+        run: databricks clusters list --output json
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_BUNDLE_ENV: prod
+      
       - name: Check if cluster exists and manage it
         run: |
           echo "Checking if cluster exists..."
-          CLUSTER_ID=$(databricks clusters list --output json | jq -r '.[] | select(.cluster_name == "hello-world-cluster") | .cluster_id')
-          echo "Cluster ID: $CLUSTER_ID"
           
-          if [ ! -z "$CLUSTER_ID" ] && [ "$CLUSTER_ID" != "null" ]; then
-            echo "Cluster exists with ID: $CLUSTER_ID"
+          # Get all clusters and search for our cluster
+          CLUSTERS_JSON=$(databricks clusters list --output json)
+          echo "All clusters JSON: $CLUSTERS_JSON"
+          
+          # Try to find our cluster by name
+          CLUSTER_ID=$(echo "$CLUSTERS_JSON" | jq -r '.[] | select(.cluster_name == "hello-world-cluster") | .cluster_id // empty')
+          echo "Found Cluster ID: '$CLUSTER_ID'"
+          
+          if [ ! -z "$CLUSTER_ID" ] && [ "$CLUSTER_ID" != "null" ] && [ "$CLUSTER_ID" != "" ]; then
+            echo "✅ Cluster exists with ID: $CLUSTER_ID"
             echo "Checking cluster state..."
             CLUSTER_STATE=$(databricks clusters get --cluster-id $CLUSTER_ID --output json | jq -r '.state')
             echo "Cluster state: $CLUSTER_STATE"
             
             if [ "$CLUSTER_STATE" = "TERMINATED" ]; then
-              echo "Starting existing cluster..."
+              echo "🔄 Starting existing cluster..."
               databricks clusters start $CLUSTER_ID
             elif [ "$CLUSTER_STATE" = "RUNNING" ]; then
-              echo "Cluster is already running"
+              echo "✅ Cluster is already running"
             else
-              echo "Cluster is in state: $CLUSTER_STATE"
+              echo "⚠️ Cluster is in state: $CLUSTER_STATE"
             fi
           else
-            echo "Cluster does not exist, creating new cluster..."
+            echo "❌ Cluster 'hello-world-cluster' not found, creating new cluster..."
+            echo "Available clusters:"
+            echo "$CLUSTERS_JSON" | jq -r '.[] | "  - \(.cluster_name) (ID: \(.cluster_id), State: \(.state))"'
+            
             databricks clusters create --json '{
               "cluster_name": "hello-world-cluster",
               "spark_version": "16.3.x-scala2.12",

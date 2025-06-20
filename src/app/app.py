@@ -12,4 +12,4 @@ if st.button(f"Trigger job with ID {JOB_ID}"):
         response = w.jobs.run_now(job_id=JOB_ID)
         st.success("Job started successfully!")
     except Exception as e:
-        st.error(e) 
+        st.error(f"Error starting job: {e}") 

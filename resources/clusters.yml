@@ -1,7 +1,6 @@
 resources:
   clusters:
     hello_world_cluster:
-      name: "hello-world-cluster"
       spark_version: "14.3.x-scala2.12"
       node_type_id: "Standard_DS3_v2"
       num_workers: 1

@@ -5,7 +5,9 @@ from databricks.sdk import WorkspaceClient
 
 JOB_ID = os.getenv("JOB_ID")
 
-w = WorkspaceClient()
+# Only create WorkspaceClient if we're not in a test environment
+if not os.getenv("TESTING"):
+    w = WorkspaceClient()
 
 
 if st.button(f"Trigger job with ID {JOB_ID}"):

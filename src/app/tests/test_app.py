@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -7,6 +8,9 @@ import streamlit as st
 
 def test_app_imports():
     """Test that the app can be imported without errors."""
+    # Set testing environment to prevent WorkspaceClient instantiation
+    os.environ["TESTING"] = "1"
+    
     # Add the app directory to the path so we can import the app
     app_path = Path(__file__).parent.parent
     sys.path.insert(0, str(app_path))
@@ -21,6 +25,9 @@ def test_app_imports():
 
 def test_app_has_required_components():
     """Test that the app has the required components."""
+    # Set testing environment to prevent WorkspaceClient instantiation
+    os.environ["TESTING"] = "1"
+    
     # Add the app directory to the path so we can import the app
     app_path = Path(__file__).parent.parent
     sys.path.insert(0, str(app_path))

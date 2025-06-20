@@ -1,5 +1,5 @@
 @echo off
-REM Databricks Apps DABs Setup Script for Windows
+REM Databricks Apps DABs Setup Script for Windows PC
 REM This script helps you set up the development environment
 
 echo 🚀 Setting up Databricks Apps DABs project...

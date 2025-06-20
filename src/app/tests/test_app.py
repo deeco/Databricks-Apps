@@ -12,7 +12,8 @@ def test_app_imports():
     sys.path.insert(0, str(app_path))
     
     try:
-        import app
+        # Import the actual app.py module, not the package
+        import app.app as app_module
         assert True, "App imported successfully"
     except Exception as e:
         pytest.fail(f"Failed to import app: {e}")
@@ -24,10 +25,11 @@ def test_app_has_required_components():
     app_path = Path(__file__).parent.parent
     sys.path.insert(0, str(app_path))
     
-    import app
+    # Import the actual app.py module, not the package
+    import app.app as app_module
     
-    # Check that JOB_ID is accessible
-    assert hasattr(app, "JOB_ID") or "JOB_ID" in app.__dict__, "JOB_ID should be available"
+    # Check that JOB_ID is accessible (it's defined in the module)
+    assert hasattr(app_module, "JOB_ID"), "JOB_ID should be available"
     
     # Check that WorkspaceClient is imported
-    assert "WorkspaceClient" in dir(app), "WorkspaceClient should be imported" 
+    assert "WorkspaceClient" in dir(app_module), "WorkspaceClient should be imported" 

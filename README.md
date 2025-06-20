@@ -2,6 +2,8 @@
 
 This repository demonstrates how to automate Databricks Apps deployments using GitHub Actions and Databricks Asset Bundles (DABs). It provides a complete CI/CD pipeline for building, testing, and deploying data applications on the Databricks Data Intelligence Platform.
 
+<!-- Updated to trigger new workflow run -->
+
 ## Overview
 
 This project implements a Streamlit application that allows users to trigger Databricks jobs through a web interface. The deployment pipeline includes:

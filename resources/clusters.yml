@@ -9,4 +9,6 @@ resources:
       aws_attributes:
         ebs_volume_type: "GENERAL_PURPOSE_SSD"
         ebs_volume_count: 1
-        ebs_volume_size: 100 
+        ebs_volume_size: 100
+        availability: "ON_DEMAND"
+        zone_id: "auto" 

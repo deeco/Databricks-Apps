@@ -33,10 +33,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: databricks/setup-cli@main
       
-      - name: Start cluster
+      - name: Get cluster ID and start cluster
         run: |
+          echo "Getting cluster ID..."
+          CLUSTER_ID=$(databricks clusters list --output json | jq -r '.clusters[] | select(.cluster_name == "hello-world-cluster") | .cluster_id')
+          echo "Cluster ID: $CLUSTER_ID"
           echo "Starting cluster..."
-          databricks clusters start --cluster-name "hello-world-cluster"
+          databricks clusters start $CLUSTER_ID
           echo "Cluster start command completed"
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
@@ -49,7 +52,8 @@ jobs:
           echo "Waiting for cluster to be fully ready..."
           sleep 90
           echo "Checking cluster status..."
-          databricks clusters get --cluster-name "hello-world-cluster"
+          CLUSTER_ID=$(databricks clusters list --output json | jq -r '.clusters[] | select(.cluster_name == "hello-world-cluster") | .cluster_id')
+          databricks clusters get --cluster-id $CLUSTER_ID
           echo "Cluster should be ready now"
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}

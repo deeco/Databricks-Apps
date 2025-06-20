@@ -1,8 +1,8 @@
 resources:
   clusters:
     hello_world_cluster:
-      spark_version: "14.3.x-scala2.12"
-      node_type_id: "r5.xlarge"
+      spark_version: "16.3.x-scala2.12"
+      node_type_id: "m5d.large"
       num_workers: 1
       spark_conf:
         spark.databricks.delta.preview.enabled: "true"

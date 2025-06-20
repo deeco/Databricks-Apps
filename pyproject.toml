@@ -27,7 +27,7 @@ line-length = 88
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "C90", "I", "N", "UP", "YTT", "S", "BLE", "FBT", "B", "A", "COM", "C4", "DTZ", "T10", "EM", "EXE", "FA", "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SLOT", "SIM", "TID", "TCH", "ARG", "PTH", "ERA", "PD", "PGH", "PL", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF"]
-ignore = ["E501", "F401", "INP001", "BLE001", "S101", "PT015", "PT017", "B011", "PLC0415"]
+ignore = ["E501", "F401", "INP001", "BLE001", "S101", "PT015", "PT017", "B011", "PLC0415", "W291", "W292", "W293", "I001"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]

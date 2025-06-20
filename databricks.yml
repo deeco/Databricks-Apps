@@ -2,7 +2,13 @@ bundle:
   name: hello-world-app-bundle
 
 include:
-  - src/**/*
+  - resources/*.yml
+  - databricks.yml
+
+sync:
+  include:
+    - src/app/**
+    - src/notebooks/**
 
 targets:
   dev:

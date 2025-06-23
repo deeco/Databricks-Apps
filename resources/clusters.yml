@@ -12,4 +12,9 @@ resources:
         ebs_volume_count: 1
         ebs_volume_size: 100
         availability: "ON_DEMAND"
-        zone_id: "auto" 
+        zone_id: "auto"
+      # Add tags to help with resource identification and management
+      tags:
+        bundle: "hello-world-app-bundle"
+        environment: "prod"
+        purpose: "app-cluster" 

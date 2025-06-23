@@ -1,7 +1,7 @@
 resources:
   apps:
     hello-world-app:
-      name: "hello-world-app"
+      name: "hello-world-app-${bundle.environment}"
       source_code_path: ../src/app
       description: "A Streamlit app that lets users trigger the job included in this bundle."
 

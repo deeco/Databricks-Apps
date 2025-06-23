@@ -1,7 +1,7 @@
 resources:
   jobs:
     hello_world:
-      name: "hello-world-job"
+      name: "hello-world-job-${bundle.environment}"
       description: "A simple job that prints hello world"
       tasks:
         - task_key: "hello_world_task"

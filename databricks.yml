@@ -16,10 +16,6 @@ targets:
     default: true
     workspace:
       host: https://ias-dataplatform-dev.cloud.databricks.com/ # TODO: Replace with your actual workspace URL
-    resources:
-      apps:
-        hello-world-app:
-          name: "hello-world-app-dev"
   prod:
     mode: production
     workspace:
